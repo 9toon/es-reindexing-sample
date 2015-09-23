@@ -42,10 +42,26 @@ GEM
     builder (3.2.2)
     byebug (6.0.2)
     debug_inspector (0.0.2)
+    elasticsearch (1.0.13)
+      elasticsearch-api (= 1.0.13)
+      elasticsearch-transport (= 1.0.13)
+    elasticsearch-api (1.0.13)
+      multi_json
+    elasticsearch-model (0.1.7)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.7)
+    elasticsearch-transport (1.0.13)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.6.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    hashie (3.4.2)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -59,6 +75,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.8.0)
     multi_json (1.11.2)
+    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     rack (1.6.4)
@@ -127,6 +144,8 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  elasticsearch-model
+  elasticsearch-rails
   jbuilder (~> 2.0)
   rails (= 4.2.4)
   sass-rails (~> 5.0)
