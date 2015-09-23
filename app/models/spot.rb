@@ -23,4 +23,13 @@ class Spot < ActiveRecord::Base
       'location'  => "#{lat},#{lon}",
     }
   end
+
+  def self.create_index!(name: )
+    client = __elasticsearch__.client
+
+    client.indices.create(
+      index: name,
+      body: { settings: self.settings.to_hash, mappings: self.mappings.to_hash }
+    )
+  end
 end
