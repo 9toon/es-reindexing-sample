@@ -27,8 +27,10 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '~> 2.7.0', require: false
+  gem 'pry', '~> 0.10.0'
+  gem 'pry-rails', '~> 0.3.2'
+  gem 'pry-byebug'
 end
 
 group :development do
