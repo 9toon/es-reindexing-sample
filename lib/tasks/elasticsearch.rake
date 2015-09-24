@@ -14,7 +14,21 @@ namespace :elasticsearch do
         Spot.__elasticsearch__.import(index: new_index_name, type: Spot.document_type, batch_size: batch_size)
       end
 
+      if ENV['COMMIT'].to_i.nonzero?
+        Rake::Task["elasticsearch:alias:switch"].invoke
+      end
+
       puts "[INDEX][Spot] Created: #{new_index_name}"
+    end
+  end
+
+  namespace :alias do
+    task switch: :environment do
+      raise "INDEX should be given" unless ENV['INDEX']
+      new_index_name = ENV['INDEX']
+
+      puts "========== put an alias named #{Spot.index_name} to #{new_index_name} =========="
+      Spot.switch_alias!(alias_name: Spot.index_name, new_index: new_index_name)
     end
   end
 end

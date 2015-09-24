@@ -24,12 +24,28 @@ class Spot < ActiveRecord::Base
     }
   end
 
-  def self.create_index!(name: )
-    client = __elasticsearch__.client
+  class << self
+    def create_index!(name: )
+      client = __elasticsearch__.client
 
-    client.indices.create(
-      index: name,
-      body: { settings: self.settings.to_hash, mappings: self.mappings.to_hash }
-    )
+      client.indices.create(
+        index: name,
+        body: { settings: self.settings.to_hash, mappings: self.mappings.to_hash }
+      )
+    end
+
+    def switch_alias!(alias_name: , new_index: )
+      client = __elasticsearch__.client
+
+      old_indexes = client.indices.get_alias(index: alias_name).keys
+
+      actions = []
+      actions << { add: { index: new_index, alias: alias_name } }
+      old_indexes.each do |old_index|
+        actions << { remove: { index: old_index, alias: alias_name } }
+      end
+
+      client.indices.update_aliases(body: { actions: actions })
+    end
   end
 end
